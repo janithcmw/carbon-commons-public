@@ -29,6 +29,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.wso2.carbon.apimgt.api.APIManagementException;
+import org.wso2.carbon.apimgt.impl.utils.APIUtil;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -78,13 +80,15 @@ public class GoogleAnalyticsDataPublisher {
      * @param useSSL - to publish using HTTPS, set this value to true.
      * @return
      */
-    public static boolean publishGET(String payload, String userAgent, boolean useSSL) {
-        HttpClient client = new DefaultHttpClient();
-        HttpGet get = new HttpGet(getURI(useSSL) + "?" + payload);
+    public static boolean publishGET(String payload, String userAgent, boolean useSSL) throws APIManagementException {
+        String googleUri = getURI(useSSL);
+        HttpClient client = APIUtil.getHttpClient(googleUri);
+        HttpGet get = new HttpGet(googleUri + "?" + payload);
         get.setHeader(GoogleAnalyticsConstants.HTTP_HEADER_USER_AGENT, userAgent);
 
         try {
             HttpResponse response = client.execute(get);
+
             if((response.getStatusLine().getStatusCode() == 200)
                     && (response.getFirstHeader(GoogleAnalyticsConstants.HTTP_HEADER_CONTENT_TYPE).getValue()
                     .equals(GoogleAnalyticsConstants.RESPONSE_CONTENT_TYPE))) {
