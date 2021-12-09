@@ -1306,11 +1306,11 @@
                 <version>${atomikos.version}</version>
             </dependency>
             <!-- poi -->
-            <dependency>
-                <groupId>org.apache.poi.wso2</groupId>
-                <artifactId>poi-scratchpad</artifactId>
-                <version>${poi.wso2.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.apache.poi.wso2</groupId>-->
+<!--                <artifactId>poi-scratchpad</artifactId>-->
+<!--                <version>${poi.wso2.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.apache.poi.wso2</groupId>
                 <artifactId>poi-ooxml</artifactId>
